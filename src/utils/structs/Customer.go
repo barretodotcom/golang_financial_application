@@ -15,11 +15,11 @@ type CustomerBasicInfos struct {
 }
 
 type AccountTransactions struct {
-	Id                     uint32    `json:"id"`
-	DebitedAccountUsername string    `json:"debitedAccountUsername"`
-	CreditedAccountUsernam string    `json:"creditedAccountUsername"`
-	DebitedAccountId       uint32    `json:"debitedAccountId"`
-	CreditedAccountId      uint32    `json:"creditedAccountId"`
-	Balance                uint64    `json:"balance"`
-	CreatedAt              time.Time `json:"createdAt"`
+	Id                      uint32    `json:"id"`
+	DebitedAccountUsername  string    `json:"debitedAccountUsername"`
+	CreditedAccountUsername string    `json:"creditedAccountUsername"`
+	DebitedAccountId        uint32    `json:"debitedAccountId"`
+	CreditedAccountId       uint32    `json:"creditedAccountId"`
+	Balance                 uint64    `json:"balance"`
+	CreatedAt               time.Time `json:"createdAt"`
 }
