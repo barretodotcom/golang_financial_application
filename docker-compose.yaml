@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  api:
+    container_name: financial_api
+    image: golang:1.19.3-alpine3.16
+    restart: 'always'
+    build: .
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/go/src/app
+    environment:
+      - GOPATH=/go/modules
+      - GOOS=linux
+  db:
+    container_name: financial_database
+    image: postgres:latest
+    restart: 'always'
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=backend
+      - POSTGRES_PORT=5432
+  rabbitmq:
+    hostname: rabbitmq-container
+    image: rabbitmq:3.7-management
+    container_name: financial_rabbitmq
+    build: ./dockerfile-rmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - type: bind
+        source: ./dockerfile-rmq/rabbitmq-enabled-plugins
+        target: /etc/rabbitmq/enabled_plugins
+      - type: bind
+        source: ./dockerfile-rmq/rabbitmq.conf
+        target: /etc/rabbitmq/rabbitmq.conf
+      - type: bind
+        source: ./dockerfile-rmq/rabbitmq-defs.json
+        target: /etc/rabbitmq/rabbitmq-defs.json
+
+networks:
+  default:
+    external:
+      name: financial-network
