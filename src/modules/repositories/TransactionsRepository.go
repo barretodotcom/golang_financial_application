@@ -109,7 +109,6 @@ func NewTransactionBrokerMessage(debitedAccountId, creditedAccountId uint32, val
 func FindAllUserTransactionsRepository(accountId uint32, tr *Repository) []structs.AccountTransactions {
 	var allTransactions []structs.AccountTransactions
 	tr.DB.Raw(allAccountTransactionsQuery, accountId, accountId).Take(&allTransactions)
-	fmt.Println(allTransactions[0])
 	return allTransactions
 }
 
